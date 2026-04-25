@@ -1,0 +1,47 @@
+# Beam Bending Calculator
+# Simply Supported Beam with Central Load
+
+def beam_analysis(load, length, youngs_modulus, moment_of_inertia, height):
+    """
+    Calculates maximum bending stress and deflection.
+
+    Parameters:
+    load (P) in Newtons
+    length (L) in meters
+    youngs_modulus (E) in Pascals
+    moment_of_inertia (I) in m^4
+    height (h) in meters
+
+    Returns:
+    max_stress (Pa), max_deflection (m)
+    """
+
+    # Maximum bending moment
+    M = (load * length) / 4
+
+    # Distance from neutral axis
+    c = height / 2
+
+    # Bending stress
+    stress = (M * c) / moment_of_inertia
+
+    # Deflection
+    deflection = (load * (length ** 3)) / (48 * youngs_modulus * moment_of_inertia)
+
+    return stress, deflection
+
+
+# Example usage
+if __name__ == "__main__":
+    print("Beam Bending Calculator")
+
+    P = float(input("Enter Load (N): "))
+    L = float(input("Enter Length (m): "))
+    E = float(input("Enter Young's Modulus (Pa): "))
+    I = float(input("Enter Moment of Inertia (m^4): "))
+    h = float(input("Enter Beam Height (m): "))
+
+    stress, deflection = beam_analysis(P, L, E, I, h)
+
+    print(f"\nMaximum Bending Stress: {stress:.2f} Pa")
+    print(f"Maximum Deflection: {deflection:.6f} m")
